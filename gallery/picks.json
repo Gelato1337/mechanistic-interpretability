@@ -72,7 +72,8 @@
  {
   "layer": 31,
   "f": 158916,
-  "reading": "Game theory and strategic cooperation. Fires on the 100-prisoners drawer puzzle in JavaScript, Python, C and C++, stable-marriage preferences, rock-paper-scissors in C, a multi-agent environment, and the Slave's Wager in abstract_religion."
+  "reading": "Game theory and strategic cooperation. Fires on the 100-prisoners drawer puzzle in JavaScript, Python, C and C++, stable-marriage preferences, rock-paper-scissors in C, a multi-agent environment, and the Slave's Wager in abstract_religion.",
+  "star": true
  },
  {
   "layer": 47,
@@ -122,7 +123,8 @@
  {
   "layer": 31,
   "f": 15475,
-  "reading": "Gases, pressure and inflation. Fires on stories about blowing up balloons, a balloon word problem, Kelvin conversion code in four languages, inflate.js, deflate in C++ and assembly, and gas pressure in an oil-field case."
+  "reading": "Gases, pressure and inflation. Fires on stories about blowing up balloons, a balloon word problem, Kelvin conversion code in four languages, inflate.js, deflate in C++ and assembly, and gas pressure in an oil-field case.",
+  "star": true
  },
  {
   "layer": 43,
