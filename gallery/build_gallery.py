@@ -30,7 +30,7 @@ badge = lambda pk: '<span class="badge" title="highlighted">★</span>' if pk.ge
 def esc(s): return html.escape(s,quote=False)
 def pct(n): return f"{100*n/N:.1f}".rstrip("0").rstrip(".")+" %"
 def chart(c,home):
-    rows=[d for d in DOMS if d in c]; mx=max(c.values()); W=720; LW=190; H=18*len(rows)+8
+    rows=[d for d in DOMS if d in c]; mx=max(c.values()); W=760; LW=200; H=18*len(rows)+8
     s=[f'<svg class="bars" viewBox="0 0 {W} {H}" role="img" aria-label="prompts where the feature fires, per domain">']
     for i,d in enumerate(rows):
         y=i*18+4; w=max(2,(W-LW-60)*c[d]/mx); cls="home" if d==home else tier(d)
@@ -50,7 +50,7 @@ def passage(dom,p,fmax):
     if hi<len(toks) or p["n_tokens"]>len(toks): body+=f' <span class="cut">[…] tokens {lo+1}–{hi} of {p["n_tokens"]} shown</span>'
     nf=p["n_fired"]; share=100*nf/p["n_tokens"]
     return f'<div class="pass"><div class="ph"><span class="{tier(dom)}">{dom}</span> · passage {p["prompt"]} · fires on {nf} token{"s" if nf!=1 else ""} ({share:.0f} % of the passage) · peak {p["peak"]:.0f}</div><div class="txt">{body}</div></div>'
-HEAD=open(os.path.join(HERE,"head.html")).read().replace("<h1>","<h1 id=\"top\">",1).replace("</style>",".totop{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));padding:.5rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);font:inherit;font-size:.85rem;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}.totop:focus-visible{outline:2px solid var(--home)}.toc{margin:1.5rem 0 0;font-size:.9rem}.tocg{break-inside:avoid;margin-bottom:1rem}.toch{font-weight:600;font-family:var(--mono);text-decoration:none;color:var(--fg)}.toc ul{margin:.3rem 0 0;padding-left:1.1rem}.toc li.star a{color:var(--star);font-weight:600}.toc li{margin:.15rem 0}.toc a{color:var(--home)}</style>")
+HEAD=open(os.path.join(HERE,"head.html")).read().replace("<h1>","<h1 id=\"top\">",1).replace("</style>",".totop{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));padding:.5rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);font:inherit;font-size:.85rem;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}.totop:focus-visible{outline:2px solid var(--home)}.toc{columns:2;column-gap:2.5rem;margin:1.5rem 0 0;font-size:.9rem}@media(max-width:640px){.toc{columns:1}}.tocg{break-inside:avoid;margin-bottom:1rem}.toch{font-weight:600;font-family:var(--mono);text-decoration:none;color:var(--fg)}.toc ul{margin:.3rem 0 0;padding-left:1.1rem}.toc li.star a{color:var(--star);font-weight:600}.toc li{margin:.15rem 0}.toc a{color:var(--home)}</style>")
 out=[HEAD]
 # group by home domain, order of CONTENT, within by layer
 by_home={h:[] for h in CONTENT}

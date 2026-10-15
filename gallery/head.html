@@ -6,7 +6,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171716;--fg:#e8e5de;--mute:#a09b90;--line:#33312d;--home:#7fb0ec;--content:#e0a06c;--code:#7ccb9c;--lang:#c79be0;--mark:255,185,60;--star:#fb923c;--starbg:#2a1d12;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#171716;--fg:#e8e5de;--mute:#a09b90;--line:#33312d;--home:#7fb0ec;--content:#e0a06c;--code:#7ccb9c;--lang:#c79be0;--mark:255,185,60;--star:#fb923c;--starbg:#2a1d12;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55;margin:0 auto;max-width:800px;padding-inline:clamp(16px,4vw,32px);padding-block:32px 80px}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:17px;line-height:1.55;margin:0 auto;max-width:920px;padding-inline:clamp(16px,4vw,32px);padding-block:32px 80px}
 h1{font-size:1.7rem;font-weight:600;margin:0 0 .6rem;text-wrap:balance}
 h2{font-size:1.15rem;font-weight:600;margin:3rem 0 0;padding-top:1rem;border-top:2px solid var(--fg)}
 .lead{color:var(--mute);margin:0 0 .7rem}
@@ -20,7 +20,7 @@ h2{font-size:1.15rem;font-weight:600;margin:3rem 0 0;padding-top:1rem;border-top
 .facts dt{color:var(--mute)}.facts dd{margin:0;min-width:0}
 .note{font-size:.92rem;margin:0 0 .8rem}
 .bars{width:100%;height:auto;display:block;margin:0 0 1.2rem}
-.bars text{font-family:var(--mono);font-size:11px;fill:var(--fg)}
+.bars text{font-family:var(--mono);font-size:12px;fill:var(--fg)}
 .bars rect.home{fill:var(--home)}.bars rect.content{fill:var(--content)}.bars rect.code{fill:var(--code)}.bars rect.language{fill:var(--lang)}
 .pass{margin:0 0 1rem}
 .ph{font-family:var(--mono);font-size:.8rem;color:var(--mute);margin-bottom:.25rem}
@@ -31,6 +31,6 @@ mark{background:rgba(var(--mark),var(--o));color:inherit;font-weight:500;border-
 .home-tag{color:var(--home);font-weight:600}
 </style>
 <h1>Topic features by content domain</h1>
-<p class="lead">Gemma 3 27B with the Gemma Scope 2 262k SAEs on the residual stream, layers 31 to 59. A topic feature belongs to one content domain, its home: the home holds at least half of the prompts the feature fires in, the feature fires in 25 to 300 of the home's 500 prompts and in at most 5 % of all prompts, it fires over spans of a home text (at least 4 tokens and 3 % of the text on average), and it also fires in at least two prompts of each of five other domains. The 36 features below were read by hand. <span style="color:var(--star)">★</span> marks two to start with: gases and pressure, and game theory.</p>
+<p class="lead">Gemma 3 27B with the Gemma Scope 2 262k SAEs on the residual stream, layers 31 to 59. A topic feature belongs to one content domain, its home: the home holds at least half of the prompts the feature fires in, the feature fires in 25 to 300 of the home's 500 prompts and in at most 5 % of all prompts, it fires over spans of a home text (at least 4 tokens and 3 % of the text on average), and it also fires in at least two prompts of each of five other domains. The 36 features below were read by hand.</p>
 <p class="lead">Each block gives the home domain, the other domains it reaches, a chart of the prompts it fires in per domain, then two home passages and up to two passages from each other domain, with the fired tokens highlighted (darker = stronger; hover for the value). The one-line reading under each feature is the author's, written after reading the passages.</p>
 <div class="legend"><span><i style="background:var(--home)"></i>home domain</span><span><i style="background:var(--content)"></i>other content domain</span><span><i style="background:var(--code)"></i>code domain</span><span><i style="background:var(--lang)"></i>natural-language domain</span></div>
