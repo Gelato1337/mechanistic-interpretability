@@ -1,0 +1,22 @@
+# outputs and caches never belong in the repo
+runs/
+stats/
+results/
+work/
+figures/
+logs/
+sae_bf16/
+hf_cache/
+.triton_cache/
+*.npz
+*.pt
+*.safetensors
+__pycache__/
+*.pyc
+.DS_Store
+.env
+*.token
+hf_token*
+.hf_token
+# prompt files are built locally, never committed
+thesis/data/*.csv

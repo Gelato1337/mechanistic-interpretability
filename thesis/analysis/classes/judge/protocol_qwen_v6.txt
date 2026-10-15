@@ -1,0 +1,149 @@
+You are labelling sparse-autoencoder features of a language model. Each card describes ONE feature: a FACTS header of
+computed numbers, the texts of a worked example with the tokens the feature fires on marked as [[token|activation]],
+one more passage where it fires, and random fires from other prompts (language prompts and code prompts separately,
+each with a few tokens of context). Newlines in tokens are shown as \n.
+
+The question is: WHAT DETERMINES WHICH TOKENS IT FIRES ON. Answer with exactly one of five classes plus "other".
+Go through the tests IN THIS ORDER and stop at the first that passes.
+
+1. token     The "most frequent tokens" list is dominated by 1-3 exact strings that together make up roughly half or more
+             of all fires, and the marked tokens in the texts are those strings (" the", "(", "def", " " before a number,
+             "\n"). The strings are what matters, not where they are or what the passage is about.
+2. word      The marked tokens are surface forms of ONE word or a small family of related words: inflections,
+             capitalisation, translations into other languages, split-into-pieces spellings (" Samson", "Sa"+"mson",
+             "Simson"). Test: different strings, same lemma.
+3. position  The marked tokens have different meanings but sit in the same STRUCTURAL slot: first token of the passage,
+             first token after a newline, after a punctuation mark, inside a bracket pair, every 2nd+ piece of a split
+             word. Test: you could predict the fires from the layout alone, without reading the words. A punctuation
+             mark itself is a token (test 1); the token AFTER it is a position.
+4. concept   The marked tokens are many different words that share a MEANING or a GRAMMATICAL ROLE that the token itself
+             carries: numbers, place names, pieces of personal names, function calls, negation, verbs of motion, loop
+             keywords across programming languages, the verb that follows its subject, prepositions introducing a place.
+             Test: you can name the category, predict new members, and the fires in the texts are the members only,
+             not the tokens around them. GRAMMATICAL ROLES ARE CONCEPT, NOT CONTEXT.
+5. context   The marked tokens are a MIXED BAG (nouns, verbs, function words, punctuation, subwords) with nothing in
+             common as tokens, and the fires are dense inside passages of one kind: a topic, a language, a programming
+             language, inside a code block, inside a quoted string or comment, formal register. Test: the passage decides,
+             the token does not; typically the feature fires on a large share (roughly 15% or more) of the tokens of the
+             passages it fires in, and a "topic" context feature fires in few prompts (under a few % of the corpus).
+6. other     none of the tests passes with the evidence given.
+
+Two traps that produce most wrong labels:
+  * "fires inside code" is NOT context when the marked tokens are one string or one category (a space before a digit,
+    operators, keywords): that is token or concept. Also check the random LANGUAGE fires: if the feature fires in
+    ordinary prose prompts too, "code context" is wrong.
+  * a feature that fires on the verb after a subject, on articles before a noun, on the object of a preposition, on the
+    word after a name, is a grammatical-role feature: concept. Context is only for features where WHAT the token is
+    does not matter at all.
+Coverage numbers help: a feature on 1-7% of the tokens of a passage is almost never context; one on 20-70% usually is.
+A feature marked <<ALWAYS-ON>> fires in most prompts of every kind; still classify it by what determines its fires
+inside a text. Use the random fires to check that the pattern from the example holds elsewhere.
+
+WORKED CASES (evidence abbreviated as it appears on a card -> verdict). Use them as calibration for the boundaries.
+ a) Most frequent tokens (together 96%): '(' 48%, ' (' 44%, ...; fires on 2% of tokens.            -> token, high ("opening parenthesis").
+ b) Most frequent (together 33%): '0' 9%, '1' 7%, '2' 3%, '3' 2%, '5' 1%, '4' 1%, ... all digits.    -> token, high (a small closed set: the digit characters).
+ c) Most frequent (68%): ' each' 29%, ' Each' 14%, ' chaque' 4%, ' varje' 3%, ' jedes' 2%, 'each'.   -> word, high (one lemma in all forms and languages).
+ d) Most frequent (50%): ' long' 22%, 'long' 6%, ' longest' 2%, ' longer' 2%, 'ång' 2% (Swedish lång), 'kä' (Finnish pitkä pieces). -> word, high.
+ e) Most frequent (43%): ' pays' 11%, ' countries' 5%, ' states' 4%, ' nations' 4%, ' Staaten' 2%, ' Ländern' 2%. -> concept, high
+    ("words for country/state/nation"): many different lemmas, one nameable meaning. NOT word (not one lemma), NOT context (2-5% of tokens, only those nouns).
+ f) Most frequent (83%): ' is' 33%, ' are' 13%, ' was' 9%, ' be' 6%, ' est' 6%, ' är' 5%, ' ist' 2%. -> concept, medium ("copula verbs across
+    languages"): a grammatical category with many members. It would be token only if ' is' alone carried most fires.
+ g) Fires on the verb right after the sentence subject: "Internet[[ combines]]", "Sjön[[ har]]", "Adventism[[ is]] a", "les aciers[[ sont]]";
+    3,000 distinct tokens; 5-7% of tokens. -> concept, high ("the predicate following its subject"): a grammatical ROLE of the token. NOT context.
+ h) Most frequent (8%): 'a' 1%, 'I' 1%, 'id' 1%, 'use' 1%, 'The' 1%, ...; every marked token is the first token after an opening quotation mark;
+    5% of tokens. -> position, high ("first token inside a quotation"). The tokens share nothing but their slot.
+ i) Most frequent (41%): '0' 11%, '1' 8%, '2' 4%, 'x', 'i', 'n', 'self'; every marked token is the last token before a closing parenthesis. -> position,
+    high ("token before a closing parenthesis"): the digits are frequent only because arguments often end in digits; the slot explains all fires.
+ j) Most frequent (14%): 'in', 'r', 'ä', 'ar', 'ön', 'el', 'j', 'är' ...; fires on word-internal pieces throughout Finnish, German and Swedish
+    prompts, never in English or French; 7% of tokens; fires in most prompts of those three languages. -> context, high (grain: "Finnish/German/Swedish text").
+ k) Fires on ' of', ' an', ' by', ' a', ' "', 'Sa', 'oliath', ' Samson' — 21% of the tokens of a passage about Samson, Goliath and Saint-Saëns, in
+    all five languages of the passage; fires in 0.1% of corpus prompts; the random fires are also on Goliath, Samson, biblical place names.
+    -> context, high (grain: "biblical / heroic narrative"): the token does not matter, the topic does.
+ l) Most frequent (81%): ' ' 52%, ' the' 8%, '1' 5%, '#' 2%; the marked tokens are the space before a number ("==[[ ]]0", "en[[ ]]196") in code
+    AND in prose (24 of 24 random language prompts). -> token, high ("space token before a digit"). NOT "code context": one string, and it fires in prose.
+ m) Fires on 15% of tokens inside code passages on numeric literals, short identifiers, ')' and ']' alike; in prose prompts it fires on 0.5% of tokens.
+    -> context, medium (grain: "inside code"): a mixed bag of tokens, dense only in one kind of passage.
+
+
+HARD RULES that override the impressions above (read the FACTS numbers before you read the texts):
+  R1  CODE IS A DOMAIN, NOT A CONTEXT GRAIN. Half of the cards come from code prompts, so "fires inside code" is true of
+      most of them and proves nothing. For a card whose fires are in code, ask WHICH tokens of the code fire. If you
+      can name them as tokens or as a slot — statement-ending punctuation (';', ')', '}'), the first token of a line,
+      operators, digits inside numbers, identifiers/variable names, keywords, the space before a digit — the answer is
+      position / token / concept, never context. "inside code" is an acceptable grain ONLY when the fired tokens are of
+      every kind at once (identifiers AND operators AND digits AND punctuation AND keywords) with none dominating, and
+      the coverage is at least 15% of the tokens in code prompts.
+  R2  COVERAGE GATE. Take the largest "% of tokens when it fires" among the member domains. Below 8%: context is not
+      allowed unless the feature fires in under 3% of corpus prompts AND its fires are on unrelated words of one
+      recognisable topic (then it is a topic-context feature). Between 8% and 15%: context needs the mixed bag to be
+      really mixed (no token type you can name). Above 20%: context is the default unless test 1-4 clearly passes.
+  R3  MULTILINGUAL IS NORMAL. Every prompt of this corpus exists in five languages, so a feature that "fires across
+      English, Finnish, French, German, Swedish" is the usual case, not evidence for anything. Language is a context
+      grain only when the feature fires in SOME languages and not in others (case j).
+  R4  "diverse tokens" is not by itself evidence for context: position and concept features also fire on thousands of
+      distinct strings. Diversity plus a nameable slot = position; diversity plus a nameable category = concept;
+      diversity plus a topic or passage type AND high coverage = context.
+  R5  NARRATIVE/PROSE IS ALSO A DOMAIN, NOT A GRAIN. "Narrative text", "general prose", "text passages" are not
+      allowed grains. A prose feature is context only for a nameable topic (biblical narrative, geology, farms) or a
+      register (inside a quotation, a comment, a list) or a language subset.
+  R6  CLOSED STRING SETS ARE TOKEN. When the fired tokens are drawn from a small closed inventory of strings — the ten digits,
+      single letters, punctuation marks and whitespace (' ', '\n', ';', ')', '}', ',', '.'), a handful of function words —
+      the class is token even if many different strings occur and even if no single string reaches half. Test 1 passes
+      when the "most frequent tokens" list is made of such short strings that together cover 40% or more of the fires.
+      This holds in code too: a feature on ';', ')', '}', '\n' is token ("statement-ending punctuation"), never other.
+      Do NOT answer other/low for these: "space, newline and punctuation" IS a describable token set.
+      LIMIT: R6 holds only while the coverage is below 15%. A feature on 20% or more of the tokens of code prompts that
+      fires on newlines AND spaces AND digits AND punctuation AND identifiers is the mixed bag of R1: context ("inside
+      code"), because no closed set covers that much of a passage.
+  R7  ONE LEMMA IS WORD, NOT CONCEPT. A feature on one word and its inflections and translations (France/French/français/
+      Frankreich/franska; church/Kirche/kirkko/église; life/Leben/vie/liv; improve/improved/improving; whose/dont/jonka/vars) is word, even when that word names a category, a country, or a grammatical function. Concept needs
+      MANY different lemmas of one kind (dozens of country names, dozens of verbs of motion). Count the lemmas: one or a
+      handful of related lemmas = word; an open class = concept.
+  R8  THE PUNCTUATION MARK IS TOKEN, THE TOKEN AFTER IT IS POSITION. A feature whose fires are ON newlines, spaces, periods,
+      commas, semicolons or closing brackets is token (the strings themselves); position is only when the fires are on the
+      varied tokens that FOLLOW such a mark or occupy a slot (first token of a line, token inside brackets).
+  R9  "CONTINUES A WORD" IS A STATISTIC, NOT A SLOT. The FACTS line "% of fires are on a token that continues a word" is
+      computed for every feature; a high value does not make the feature a position feature, and "tokens that continue a
+      word" or "word-internal pieces" is NOT an acceptable token_type for position. Word-internal pieces are: context when
+      they are dense in some languages and not others (case j) or dense in passages of one topic; word (test 2) when they
+      are pieces of one word; concept when the pieces spell members of one category (place names, chemical names); and
+      other/low when they are pieces of unrelated words with nothing in common. Position for pieces only in the narrow
+      case "every 2nd+ piece of a split word, whatever the word, in every language" with under 10% coverage.
+  R10 A SLOT NEVER COVERS 20% OF A PASSAGE. "First token after punctuation", "token following a keyword or bracket",
+      "token after a name" describe at most one token in ten. If the coverage is 20% or more, the slot description is a
+      rationalisation: the feature is context (name the passage kind: a language, a topic, inside code) or other.
+  R11 If R1-R5 remove context and no other test passes, answer other with confidence low. Expect roughly one card in
+      eight to be other/low; a run with almost no other/low answers is wrong.
+
+Examples of code cards that are NOT context (all judged wrong as "inside code" by a previous run):
+  n) ';' 14%, '>' 6%, ')' 6%, ');' 5%, ' {' 5%, ',' 5% ...; 2-3% of tokens in every code domain, 0% in prose. -> position, high
+     ("token that ends a statement or block"): a slot, coverage far below 15%.
+  o) '&', '|', '^', '~', '<<', '>>', '+', '-', '*', '/', '=' across Python, JS, C++, C, assembly. -> concept, high ("arithmetic and bitwise operators").
+  p) 2,522 distinct tokens, mostly single letters (i, n, d, f, s, x), 7% of code tokens, also fires on letters in prose. -> token, high
+     ("single-letter tokens"): a small closed set of strings, so token (test 1), even though they serve as variable names.
+  q) '0' 11%, '1' 9%, '2' 7% ... digits inside multi-digit numbers and years, in prose and code. -> token, high ("digit characters"):
+     the ten digits are a closed set of strings; token, not concept.
+  r) 'nop', 'sleep', 'wait', 'time', 'thread', 'chrono' in code. -> concept, high ("sleep / timing function names"), not "code about timing".
+  s) 10,444 distinct tokens, 57% continue words, 6% of code tokens, random fires are variable and parameter names. -> concept, high
+     ("identifier names"): the tokens share a role (they name variables), so it is not a mixed bag.
+  t) Most frequent (63%): '\n' 22%, ' ' 15%, ';' 9%, '}' 6%, ')' 5%, ' the' 3%, ...; fires in code and prose on these short strings.
+     -> token, high ("newline, space and statement-ending punctuation"). NOT other (R6), NOT position (R8): the fires are on the marks.
+  u) Fires on ' France', 'French', ' français', ' Frankreich', ' franska', 'Fran' + 'ce' in all five languages; 6 lemmas at most.
+     -> word, high ("the word France/French across languages"). NOT concept (R7): one word, not a category of many words.
+
+Confidence: high = the evidence fits one test clearly; medium = one test fits best but another is possible; low = you
+are guessing (then prefer class other). Use low honestly: about one card in five is genuinely unclear.
+
+Answer for every card as one JSON object per line, with the keys in this order:
+{"id": "<card id>", "coverage": <largest "% of tokens when it fires" in FACTS, a number>,
+ "prompts": <"fires in X% of prompts" from FACTS, a number>,
+ "token_type": "<= 6 words: what the fired tokens have in common AS TOKENS (a string, a lemma, a slot, a category), or null if nothing>",
+ "evidence": "<= 25 words: the decisive observation from the card>",
+ "class": "<position|token|word|concept|context|other>", "what": "<= 12 words: what it responds to",
+ "confidence": "high|medium|low", "grain": "<for context/concept only: the kind of passage or category, else null>"}
+Consistency check before you answer: if token_type is not null, the class is position, token, word or concept (pick by tests 1-4),
+not context. If coverage < 8 and prompts >= 3, the class is not context. If token_type names digits, letters, punctuation or
+whitespace strings, the class is token. If token_type names one word "across languages", the class is word.
+If token_type says "continues a word" / "word-internal", the class is not position (R9). If coverage >= 20 and the class is
+position or token, re-read R6 and R10: it is most likely context.
+Output nothing except this JSON line.

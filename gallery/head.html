@@ -1,0 +1,33 @@
+<title>Topic features by domain</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* layout: one long column of feature blocks; each block = header, bar chart, passages */
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mute:#6a665e;--line:#e2ded5;--home:#1f5fa8;--content:#8a4b1c;--code:#2d7a4f;--lang:#7a3f8c;--mark:255,170,30;--font:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171716;--fg:#e8e5de;--mute:#a09b90;--line:#33312d;--home:#7fb0ec;--content:#e0a06c;--code:#7ccb9c;--lang:#c79be0;--mark:255,185,60;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171716;--fg:#e8e5de;--mute:#a09b90;--line:#33312d;--home:#7fb0ec;--content:#e0a06c;--code:#7ccb9c;--lang:#c79be0;--mark:255,185,60;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5;padding-inline:clamp(16px,4vw,48px);padding-block:32px 80px;max-width:1100px;margin:0 auto}
+h1{font-size:1.7rem;font-weight:600;margin:0 0 .4rem;text-wrap:balance}
+h2{font-size:1.15rem;font-weight:600;margin:3rem 0 1rem;padding-top:1rem;border-top:2px solid var(--fg)}
+.lead{max-width:68ch;color:var(--mute);margin:0 0 .6rem}
+.legend{display:flex;flex-wrap:wrap;gap:1rem;font-size:.85rem;color:var(--mute);margin:.8rem 0 0}
+.legend i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:5px}
+.feat{border-top:1px solid var(--line);padding-top:1.2rem;margin-top:2rem}
+.fh{font-family:var(--mono);font-size:1.05rem;font-weight:500;margin:0 0 .5rem}
+.facts{display:grid;grid-template-columns:max-content 1fr;gap:.2rem 1rem;font-size:.95rem;margin:0 0 1rem}
+.facts dt{color:var(--mute)}.facts dd{margin:0}
+.note{font-size:.9rem;color:var(--mute);max-width:68ch;margin:0 0 .8rem}
+.bars{width:100%;max-width:560px;height:auto;display:block;margin:0 0 1.2rem}
+.bars text{font-family:var(--mono);font-size:11px;fill:var(--fg)}
+.bars rect.home{fill:var(--home)}.bars rect.content{fill:var(--content)}.bars rect.code{fill:var(--code)}.bars rect.language{fill:var(--lang)}
+.pass{margin:0 0 1rem}
+.ph{font-family:var(--mono);font-size:.82rem;color:var(--mute);margin-bottom:.25rem}
+.ph .content{color:var(--content)}.ph .code{color:var(--code)}.ph .language{color:var(--lang)}
+.txt{font-family:var(--mono);font-size:.84rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;border-left:3px solid var(--line);padding-left:.8rem;max-width:95ch}
+mark{background:rgba(var(--mark),var(--o));color:inherit;font-weight:500;border-radius:2px}
+.cut{color:var(--mute);font-style:italic}
+.home-tag{color:var(--home);font-weight:600}
+</style>
+<h1>Topic features by content domain</h1>
+<p class="lead">Gemma 3 27B, Gemma Scope 2 262k SAEs on resid_post, layers 31 to 59. A topic feature belongs to one content domain and fires on its topic as a span of tokens, and also fires in at least five other domains; the full rule and the counts are in the section on the population below. Counts in the feature blocks are prompts out of 500 per domain (28 domains, 14,000 prompts, start token excluded).</p>
+<p class="lead">Grouped by home domain. Each block: home domain and how common the feature is there, the target domains and how common it is there, a bar chart of prompts where it fires per domain, then two home passages and up to two passages per target domain, cut to 15 tokens either side of the fired span, with every fired token highlighted. Highlight depth scales with activation relative to the feature's strongest shown fire; hover a token for its value. Passages from other domains are printed only where the feature fires on at least three tokens; every fire counts in the chart. The one-line reading under each feature id is the author's, written after reading the passages.</p>
+<div class="legend"><span><i style="background:var(--home)"></i>home domain</span><span><i style="background:var(--content)"></i>other content domain</span><span><i style="background:var(--code)"></i>code domain</span><span><i style="background:var(--lang)"></i>natural-language domain</span></div>

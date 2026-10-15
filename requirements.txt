@@ -1,0 +1,17 @@
+# GPU capture (scripts/capture.py, scripts/test_kernel.py): PyTorch with Triton.
+#   AMD (tested: LUMI MI250X, ROCm 6.2, PyTorch 2.7.1, Triton 3.x) or NVIDIA Ampere+ (kernel not yet validated there; see docs/ENGINE.md)
+torch>=2.5
+triton>=3.0
+transformers>=4.50          # Gemma 3
+accelerate>=0.33
+safetensors
+huggingface_hub
+# data, aggregation, analysis
+numpy
+pandas
+scipy
+scikit-learn==1.9.0          # feature classifier; the shipped model (analysis/classifier/) was saved with 1.9.0
+joblib
+matplotlib                  # figures
+datasets                    # data/build_dataset.py
+jupyter                     # notebooks/

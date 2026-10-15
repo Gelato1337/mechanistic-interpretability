@@ -1,0 +1,182 @@
+[
+ {
+  "layer": 47,
+  "f": 67607,
+  "reading": "Money and change in word problems. Fires through coin-change dynamic-programming functions in Python, JavaScript, C++ and C, and on an AITA post about donating spare change."
+ },
+ {
+  "layer": 39,
+  "f": 29365,
+  "reading": "Constraint puzzles: who likes what, which number is which. Fires through the Dinesman multiple-dwelling puzzle in C++, C and a Python regex, Cheryl's birthday in Python and JavaScript, a chess-placement comment, and a philosophy example about picking a red or black card."
+ },
+ {
+  "layer": 47,
+  "f": 25182,
+  "reading": "Recipe ratios and mixtures. Fires on a Django model with Recipe and MixingAgent, Finnish cocktail 1:1 ratios, an English curau recipe, and a textbook passage on mixtures without fixed proportions."
+ },
+ {
+  "layer": 43,
+  "f": 3145,
+  "reading": "Phones, texting and messaging. Fires through a WhatsApp-group word problem, a has_whatsapp column in SQL, a mass-send message manager in Objective-C, an FCC SMS spam story, and Swedish instant messaging."
+ },
+ {
+  "layer": 39,
+  "f": 4170,
+  "reading": "Marriage and romantic relationships. Fires on Finnish Wikipedia marriage records, a French secret love affair, Swedish family definitions, a polygamy ruling, a story wedding, and the fiance and candidates fields of stable-marriage code."
+ },
+ {
+  "layer": 35,
+  "f": 18915,
+  "reading": "Workplace, bosses and raises. Fires through an employees database in SQL, an Employee struct and employee tables in C++, Python, JavaScript and C, the FLORES Japanese work-culture sentences in five languages, and a Chinese boss group-chat comment."
+ },
+ {
+  "layer": 31,
+  "f": 9851,
+  "reading": "Pregnancy, birth and babies. Fires on ectopic pregnancy and viviparous mammals in fact_science, FLORES sentences on an obstetrician, a story about keeping an egg warm, Swiss perinatal centres in German, and a Python docstring about baby hospital admissions."
+ },
+ {
+  "layer": 59,
+  "f": 6821,
+  "reading": "Mental illness and psychiatric care. Fires on Finnish involuntary psychiatric treatment, a court report on legal insanity, a news story on a princess's mental disorder, and German and Swedish psychiatry passages."
+ },
+ {
+  "layer": 39,
+  "f": 569,
+  "reading": "Taxes. Fires through a tax-centre word problem, an AITA post about a late father's taxes, FLORES tax-free shopping in five languages, a Brazilian payroll imposto in JavaScript, a Python tax-rate table, a Panama annual-income SQL table, and a Japanese tax-configuration SQL row."
+ },
+ {
+  "layer": 43,
+  "f": 101,
+  "reading": "Compensation, damages and liability. Fires on the LIABLE FOR ANY CLAIM, DAMAGES clause of the MIT licence in Python and the zlib disclaimer in C, an AITA post about reparations to a mother, French en guise de réparation, and FLORES climate-damage fund sentences."
+ },
+ {
+  "layer": 35,
+  "f": 3999,
+  "reading": "Procedural conditions: unless, shall, within ten days. Fires on the Apache licence sentence required by applicable law or agreed to in writing in SQL, assembly, Python, JavaScript, C++ and C, on Finnish appeal procedure, and on French contract termination types."
+ },
+ {
+  "layer": 43,
+  "f": 9699,
+  "reading": "Criminal sentencing: fines, jail terms. Fires on a speeding-fine word problem, Finnish labour-camp sentences, Swedish 18th-century fines and bread-and-water prison, German Verurteilung, and news on reduced jail sentences."
+ },
+ {
+  "layer": 51,
+  "f": 14281,
+  "reading": "Jury and panel selection. Fires on the Melodifestivalen jury groups in Swedish, a French prize jury, a Finnish award committee, news on jury selection, and FLORES sentences on courts and prejudicial publication."
+ },
+ {
+  "layer": 59,
+  "f": 2790,
+  "reading": "Courts and the judiciary. Fires through a judicial_office SQL schema, German judges' careers, Finnish court administration, Swedish magistrates, a French sénéchaussée, and the FLORES Westminster Magistrates Court sentence in five languages."
+ },
+ {
+  "layer": 31,
+  "f": 158916,
+  "reading": "Game theory and strategic cooperation. Fires on the 100-prisoners drawer puzzle in JavaScript, Python, C and C++, stable-marriage preferences, rock-paper-scissors in C, a multi-agent environment, and the Slave's Wager in abstract_religion."
+ },
+ {
+  "layer": 47,
+  "f": 14230,
+  "reading": "Propositional logic and truth conditions. Fires through truth-table generators in JavaScript, Python, C and C++, a ternary logic library, a print_logic function, Swedish propositional knowledge, and Finnish contingent truths like 2 + 2 = 4."
+ },
+ {
+  "layer": 31,
+  "f": 75644,
+  "reading": "Linguistics and semantics. Fires through Swedish articles on dialects and agglutinative languages, a Finnish article on transitivity, German Sprachwissenschaftler biographies, and a Python lemma and paradigm script."
+ },
+ {
+  "layer": 47,
+  "f": 7064,
+  "reading": "Formal mathematics and logic. Fires on Möbius function and binary-run comments in assembly, a symmetric-group product header in C, French vector-space cones and homotopy, hyperbolic tilings, and group generators in Python."
+ },
+ {
+  "layer": 31,
+  "f": 4920,
+  "reading": "Jesus, Christ and the messiah. Fires through the Life of Brian messiah dialogue stored as test data in Python, JavaScript, C++ and C, Swedish Jesu liv, French Passion scenes, and news on John the Baptist's cave."
+ },
+ {
+  "layer": 39,
+  "f": 13474,
+  "reading": "Hermeticism, magic and the occult. Fires on Swedish Hermes Trismegistos, Finnish Picatrix, a Discordian calendar in JavaScript and Python, Hebrew letter tables in C and C++, magic squares, Kundalini yoga in FLORES, and aqua regia alchemy in fact_science."
+ },
+ {
+  "layer": 43,
+  "f": 9710,
+  "reading": "Islam and the Muslim world. Fires through an Indonesian pesantren SQL table with santris, madrasah and ribath, a French Tunisian ouléma biography, Swedish al-Qaida and islam articles, a Hui Muslim official, and the FLORES cave of Hira sentence in five languages."
+ },
+ {
+  "layer": 59,
+  "f": 13350,
+  "reading": "Manuscripts, copies and textual transmission. Fires on a French Haydn autograph copy, a German monastery chronicle, the FLORES illuminated manuscripts sentence in five languages, Swedish papyri, a JavaScript ManuscriptPackage import, and a manuscript-printing word problem."
+ },
+ {
+  "layer": 55,
+  "f": 11007,
+  "reading": "DNA, base pairing and gene expression. Fires through DNA base-count code in Python, a genome struct with adenine and thymine counts in C, bases arrays in JavaScript and C++, and the FLORES Hershey-Chase phage sentence in five languages."
+ },
+ {
+  "layer": 31,
+  "f": 1061,
+  "reading": "Chemistry of atoms, bonds and compounds. Fires through a Finnish article on the cyano group, Swedish fusion and fission, German pickling inhibitors, FLORES nuclear sentences in five languages, ammonia-site code in Python, Geant4 particle headers in C++, and urea as a corrosion inhibitor in a patent case."
+ },
+ {
+  "layer": 31,
+  "f": 15475,
+  "reading": "Gases, pressure and inflation. Fires on stories about blowing up balloons, a balloon word problem, Kelvin conversion code in four languages, inflate.js, deflate in C++ and assembly, and gas pressure in an oil-field case."
+ },
+ {
+  "layer": 43,
+  "f": 6402,
+  "reading": "Molecular biology and genomics. Fires through English Wikipedia protein articles, a Python RNA-Seq library and vcf mutation parser, germline variant callers in C++, upreg_mean SQL columns, a German Frataxin thesis title, and FLORES phage DNA sentences."
+ },
+ {
+  "layer": 35,
+  "f": 20071,
+  "reading": "Stock market and securities. Fires through a pandas_ta indicator module, BUY and SELL recommendation strings, CUSIP and SEDOL check-digit code in Python, JavaScript, C and C++, a fund-manager SQL procedure, and Finnish pörssi."
+ },
+ {
+  "layer": 55,
+  "f": 14855,
+  "reading": "Spaceflight, the ISS and satellites. Fires through an English article on microsatellites flying in formation, a German Al Yah 3 satellite article, Finnish STS-119, FLORES shuttle foam sentences, and NASA core Flight Executive headers in C."
+ },
+ {
+  "layer": 47,
+  "f": 59713,
+  "reading": "Copyright, piracy and adult content. Fires on a BitTorrent tracker list in JavaScript, Finnish DRM restrictions, Swedish file sharing, an opponent of copyright, and the FLORES adult pornography initiative in four languages."
+ },
+ {
+  "layer": 43,
+  "f": 1830,
+  "reading": "Flowers and gardens. Fires through a garden-flower word problem, FLORES hanami sentences in five languages, English Asteraceae florets, nocturnal flowers in fact_science, French bouquets, and the Song in the Peach Blossoms string in Python."
+ },
+ {
+  "layer": 59,
+  "f": 43963,
+  "reading": "Climbing. Fires through a robot Climber class, LeetCode climbStairs, ladder and tree-climbing word problems, redwood climbers, siege ladders, and the FLORES the tiger can climb sentence in five languages."
+ },
+ {
+  "layer": 31,
+  "f": 4630,
+  "reading": "Adventure and fantasy plot synopses. Fires through Finnish Ratchet and Clank, a French Bond villain, Star Trek and Varga plots, a film synopsis in SQL, Russian skill names, a MUD potions room in C, Pokémon trainer text in assembly, and a sea-monster word problem."
+ },
+ {
+  "layer": 31,
+  "f": 30303,
+  "reading": "Rain and getting wet. Fires on an AITA post about a kid in a puddle, buckets under a leaking roof, a garage-roof leak word problem, people running to shelter in philosophy, umbrella and waterproof items in knapsack code, and an Indonesian batas_hujan SQL table."
+ },
+ {
+  "layer": 55,
+  "f": 30649,
+  "reading": "Trees: trunks, branches, climbing. Fires through fractal-tree drawing code in Python, JavaScript and C, a forest-fire simulation, a broken flagpole word problem, oak versus willow in fact_science, the FLORES infected tree sentence in five languages, and the Kleinbettingen oak in French."
+ },
+ {
+  "layer": 43,
+  "f": 14777,
+  "reading": "Speed, distance and time word problems. Fires through a C program asking for driving distance and miles per gallon, a physics passage defining speed, and the tortoise and hare story."
+ },
+ {
+  "layer": 43,
+  "f": 181,
+  "reading": "Meiosis, gametes and reproduction. Fires on the same FLORES recombination sentence in all five languages, a French article on asexual reproduction, Swedish seed plants, sperm-and-egg origin arguments in philosophy, and a Python mate function."
+ }
+]

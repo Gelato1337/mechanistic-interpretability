@@ -1,0 +1,39 @@
+You are labelling sparse-autoencoder features of a language model. Each card describes ONE feature: a FACTS header of
+computed numbers, the texts of a worked example with the tokens the feature fires on marked as [[token|activation]],
+one more passage where it fires, and random fires from other prompts (language prompts and code prompts separately,
+each with a few tokens of context). Newlines in tokens are shown as \n. Decide WHAT DETERMINES WHERE IT FIRES.
+
+Classes (pick exactly one):
+  position  fires because of WHERE the token sits in the text, not what it is: first token of a passage, first token of a
+            sentence or line, right after a newline or punctuation, every token inside a bracket pair, etc. Test: the
+            marked tokens have different meanings but the same structural slot. A punctuation mark itself (".", "-",
+            closing quote) is a token, not a position; the token AFTER it is a position. Being the 2nd+ piece of a word
+            split into several tokens is NOT a position: such a feature is about the words whose pieces it fires on --
+            classify it word, concept (e.g. pieces of personal names) or context by what those words have in common, or
+            other if they have nothing readable in common.
+  token     fires on one exact token string or a small closed set of strings (" the", "(", "def", "\n") wherever they
+            occur. Test: the "most frequent tokens" list is dominated by 1-3 strings and the fires are those strings.
+  word      fires on one word or a small family of related words in all their surface forms: inflections, capitalisation,
+            translations into other languages, split-into-pieces spellings. Test: different strings, same word/lemma.
+  concept   fires on many different words that share a MEANING or a grammatical role (numbers, place names, function
+            calls, negation, verbs of motion, loop keywords across languages). The token itself carries the property.
+            Test: you could name the category and predict new members.
+  context   fires on tokens of any kind, whatever they are, whenever the surrounding text is of a certain kind: a topic,
+            a language, a programming language, inside a code block, inside a quoted string, inside a comment, formal
+            register, a passage about music... The token itself does NOT determine it; the passage does. Test: the marked
+            tokens are a mixed bag (nouns, verbs, punctuation, subwords) but all the passages share something.
+  other     no readable pattern from this evidence.
+
+Notes. A feature marked <<ALWAYS-ON>> fires in most prompts of every kind; still classify it by what determines its fires
+inside a text (it may be context at the coarsest grain, or position, or a token). Coverage numbers help: a feature on
+2-5% of tokens is usually token/word/position; one on 30-70% of tokens of a passage is usually context. Do not classify by
+what the tokens mean if the placement alone explains the fires. Use the random fires to check that the pattern from the
+example holds elsewhere. Check context labels against the corpus rate: a language or programming-language label needs the
+feature to fire in most prompts of that language's member domains; a feature firing in under 2% of prompts is topic-
+specific, so read the topics of the random fires and name the topic. When the evidence does not settle it, answer other
+with low confidence rather than guess.
+
+Answer for every card as one JSON object per line:
+{"id": "<card id>", "class": "<position|token|word|concept|context|other>", "what": "<= 12 words: what it responds to",
+ "confidence": "high|medium|low", "grain": "<for context/concept only: the kind of passage or category, else null>"}
+Output nothing except these JSON lines.
